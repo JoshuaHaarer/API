@@ -1,0 +1,17 @@
+.row{
+    margin-top: 5%;
+}
+
+.navbar{
+    width: 100%;
+    opacity: 0%;
+    
+}
+
+#search-input{
+    padding-right: 60%;
+}
+body{
+    background-image: url("API/assets/images/milkyway.jpg");
+    background-color: #cccccc;
+}
