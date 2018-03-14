@@ -1,41 +1,42 @@
 // API KEY -->  BmNmE0jnbbN0OGqvHxZyUCk0TPKj5GMc
 
 
-var search;
+
 var gif = [];
+var search = $("#search-input").val().trim();
 
-var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=BmNmE0jnbbN0OGqvHxZyUCk0TPKj5GMc&tag=" + search;
+$("#add-gif").on("click", function (search) {
+    
+    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=BmNmE0jnbbN0OGqvHxZyUCk0TPKj5GMc&tag= " + search;
 
-$("#add-gif").on("click", function () {
 
+    console.log(search);
     $.ajax({
         url: queryURL,
         method: 'GET'
     }).then(function (response) {
-        var imageUrl = response.data.image_original_url;
-        var search = $("<img>");
-        search.attr("src", imageUrl);
-        search.attr("alt", "cat image");
-        $("#gif-view").prepend(search);
+        
+        var results = response.data;
+        var imageUrl = response.images.url;
+        $("#gif-view").append(imageUrl);
 
         console.log(response);
     })
 });
 
 function renderButtons() {
-    $(".form-inline").empty();
+    $("#button").empty();
     for (var i = 0; i < gif.length; i++) {
-        var a = $("<button>");
-        a.addClass("btn btn-dark");
-        a.attr("data-name", gif[i]);
-        a.text(gif[i]);
-        $(".form-inline").append(a);
+        var newButton = $("<button>");
+        newButton.addClass("btn btn-dark");
+        newButton.attr("data-name", gif[i]);
+        newButton.text(gif[i]);
+        $("#button").append(newButton);
     }
 }
 $("#search-input").on("click", function (event) {
     event.preventDefault();
-    var gifSearch = $("#search-input").val().trim();
-    gif.push(gifSearch);
+    gif.push(search);
     renderButtons();
 });
 renderButtons();
